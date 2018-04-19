@@ -1,3 +1,5 @@
+require 'pdf-reader'
+
 class Document
   attr_accessor :title, :content, :owner
 
@@ -7,14 +9,24 @@ class Document
     @owner = owner
   end
 
-  def import_in_doc(file_name)
-    @content = TxtImport.new.import(file_name)
+  def import_in_doc(file_name, importer)
+    @content = importer.import(file_name)
   end
 end
 
 class TxtImport
   def import(file_name)
-    file = File.open("#{file_name}.txt")
-    file.read
+    File.open("#{file_name}.txt").read
+  end
+end
+
+class PdfImport
+  def import(file_name)
+    content = ""
+    reader = PDF::Reader.new("#{file_name}.pdf")
+    reader.pages.each do |page|
+      content += page.text
+    end
+    content
   end
 end

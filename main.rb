@@ -20,6 +20,8 @@ end
 puts "\n\n"
 
 doc = Document.new("Title", "", user)
-doc.import_in_doc("test")
+doc.import_in_doc("test", TxtImport.new)
 puts doc.content
 
+doc.import_in_doc("test", PdfImport.new)
+puts doc.content
