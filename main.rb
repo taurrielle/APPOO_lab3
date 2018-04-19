@@ -1,5 +1,6 @@
-require_relative 'user'
+require_relative 'User'
 require_relative 'AdminUser'
+require_relative 'Document'
 require 'pry'
 require 'rubygems'
 require 'active_support/all'
@@ -15,3 +16,10 @@ admin.set_data("editor", 2.days.ago)
 @user_database.each do |user|
   puts "#{user.email} last signed in on #{user.get_data[:last_signed_in]}"
 end
+
+puts "\n\n"
+
+doc = Document.new("Title", "", user)
+doc.import_in_doc("test")
+puts doc.content
+
